@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🌼 Flower Classification</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌸 Flower Image Classifier</h1>
+        <p>Select a flower image (JPEG or JPG format only). Our AI will guess the type! 🌼</p>
+
+        <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+            <input type="file" name="file" accept=".jpeg, .jpg" required onchange="display(event)">
+            <br>
+            <img id="preview" src="" alt="Preview will appear here" style="display:none;">
+            <br>
+            <button type="submit">🌼 Classify Image</button>
+        </form>
+
+        <div id="loader" style="display:none;">⏳ Classifying...</div>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>🌺 Prediction: <strong>{{ prediction }}</strong></h2>
+            <p class="confidence">Confidence: {{ confidence | round(2) }}%</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>Created by Rob Chen 🌱 | Powered by TensorFlow</p>
+    </footer>
+
+    <script>
+        function display(event) {
+            const img = document.getElementById("preview");
+            img.src = URL.createObjectURL(event.target.files[0]);
+            img.style.display = "block";
+        }
+
+        function showLoader() {
+            document.getElementById("loader").style.display = "block";
+        }
+    </script>
+</body>
+</html>
